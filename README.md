@@ -1,2 +1,2 @@
-# x-men
+# X-men
 Mutants identification
