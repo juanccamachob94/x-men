@@ -1,5 +1,6 @@
 const MutantLineSequenceCounter = require('../services/mutant_line_sequence_counter');
 const StrMatrixHelper = require('../helpers/str_matrix_helper');
+const DnaValidator = require('../validators/dna_validator');
 
 class ObliqueMutantIdentifier {
   static perform(dna) {
@@ -13,7 +14,7 @@ class ObliqueMutantIdentifier {
 
   process() {
     let total = 0;
-    let limit = 4 - 1;
+    let limit = DnaValidator.MUTANT_NUM_LINE_SEQUENCE - 1;
     let x = this.dnaLength - 1;
     let y = limit;
     for(; y < this.dnaLength; y += 1) {
@@ -36,14 +37,14 @@ class ObliqueMutantIdentifier {
     let num = undefined;
     while(StrMatrixHelper.isWithin(this.dna, i, j)) {
       sequence += this.dna[i--][j--];
-      if(sequence.length % 4 == 0) {
+      if(sequence.length % DnaValidator.MUTANT_NUM_LINE_SEQUENCE == 0) {
         num = MutantLineSequenceCounter.performSequence(sequence);
         if(num > 1)
           return num;
       }
     }
 
-    if(sequence.length % 4 != 0)
+    if(sequence.length % DnaValidator.MUTANT_NUM_LINE_SEQUENCE != 0)
       return MutantLineSequenceCounter.performSequence(sequence);
     return num;
   }
