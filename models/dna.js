@@ -21,7 +21,10 @@ DnaSchema.virtual('dna')
   })
   .set(function(dna) {
     this.dnaList = dna;
-    this.sequence = this.sequence || dna?.join(DnaValidator.SEPARATOR);
+    try {
+      this.sequence = this.sequence || dna.join(DnaValidator.SEPARATOR);
+    } catch(error) {
+    }
   });
 
 DnaSchema.methods.getDefaultData = function() {

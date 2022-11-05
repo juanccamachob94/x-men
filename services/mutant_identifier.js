@@ -1,6 +1,6 @@
-const StrMatrixHelper = require('../helpers/str_matrix_helper');
 const MutantLineSequenceCounter = require('../services/mutant_line_sequence_counter');
 const ObliqueMutantIdentifier = require('../services/oblique_mutant_identifier');
+const VerticalMutantIdentifier = require('../services/vertical_mutant_identifier');
 const DnaValidator = require('../validators/dna_validator');
 
 class MutantIdentifier {
@@ -11,7 +11,7 @@ class MutantIdentifier {
   constructor(dna) {
     this.dna = dna;
     this.dnaLength = dna?.length || 0;
-    this.rotatedDna = undefined;
+    this.verticalMutantIdentifier = undefined;
   }
 
   isMutant() {
@@ -29,7 +29,9 @@ class MutantIdentifier {
     if(numSequences > DnaValidator.MUTANT_NUM_LINE_SEQUENCES)
       return true;
 
-    return numSequences + ObliqueMutantIdentifier.perform(this.getRotatedDna())
+    return numSequences + ObliqueMutantIdentifier.perform(
+        this.getVerticalMutantIdentifier().getRotatedDna()
+      )
       > DnaValidator.MUTANT_NUM_LINE_SEQUENCES;
   }
 
@@ -38,13 +40,13 @@ class MutantIdentifier {
   }
 
   numMutantVerticalSequence() {
-    return MutantLineSequenceCounter.perform(this.getRotatedDna());
+    return this.getVerticalMutantIdentifier().process();
   }
 
-  getRotatedDna() {
-    if(this.rotatedDna === undefined)
-      this.rotatedDna = StrMatrixHelper.rotate(this.dna);
-    return this.rotatedDna;
+  getVerticalMutantIdentifier() {
+    if(this.verticalMutantIdentifier === undefined)
+      this.verticalMutantIdentifier = new VerticalMutantIdentifier(this.dna);
+    return this.verticalMutantIdentifier;
   }
 }
 

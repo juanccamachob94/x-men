@@ -37,14 +37,14 @@ class ObliqueMutantIdentifier {
     let num = undefined;
     while(StrMatrixHelper.isWithin(this.dna, i, j)) {
       sequence += this.dna[i--][j--];
-      if(sequence.length % DnaValidator.MUTANT_NUM_LINE_SEQUENCE == 0) {
+      if(sequence.length % DnaValidator.MUTANT_NUM_LINE_SEQUENCE === 0) {
         num = MutantLineSequenceCounter.performSequence(sequence);
         if(num > DnaValidator.MUTANT_NUM_LINE_SEQUENCES)
           return num;
       }
     }
 
-    if(sequence.length % DnaValidator.MUTANT_NUM_LINE_SEQUENCE != 0)
+    if(sequence.length % DnaValidator.MUTANT_NUM_LINE_SEQUENCE !== 0)
       return MutantLineSequenceCounter.performSequence(sequence);
     return num;
   }
