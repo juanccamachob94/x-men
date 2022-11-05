@@ -29,6 +29,12 @@ npm install
 ```
 npm start
 ```
+- Use the REST API, for example the POST to `/mutant`
+```
+{
+  "dna": ['AC', 'TG']
+}
+```
 - To testing (creates/updates the `coverage` directory in the project)
 ```
 npm test
