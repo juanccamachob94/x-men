@@ -13,7 +13,7 @@ class VerticalMutantIdentifier {
     let x = undefined;
     let num = undefined;
     let total = 0;
-    for (let y = 0; y < this.dnaLength; y += 1) {
+    for(let y = 0; y < this.dnaLength; y += 1) {
       row = '';
       for(x = this.dnaLength - 1; x >= 0; x -= 1) {
         row += this.dna[x][y];

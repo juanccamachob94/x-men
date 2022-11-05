@@ -1,11 +1,3 @@
-function buildMutantLineSequenceRegex() {
-  let nitrogenBasesMatchers = [];
-  DnaValidator.HUMAN_NITROGEN_BASES.forEach(nitrogenBase => {
-    nitrogenBasesMatchers.push(`${nitrogenBase}{${DnaValidator.MUTANT_NUM_LINE_SEQUENCE}}`);
-  });
-  return new RegExp(nitrogenBasesMatchers.join(DnaValidator.SEPARATOR), 'g');
-}
-
 class DnaValidator {
   static perform(dna) {
     return new DnaValidator(dna).isValid();
@@ -42,5 +34,4 @@ DnaValidator.HUMAN_NITROGEN_BASES = ['A', 'C', 'G', 'T'];
 DnaValidator.MUTANT_NUM_LINE_SEQUENCE = 4;
 DnaValidator.MUTANT_NUM_LINE_SEQUENCES = 1;
 DnaValidator.SEPARATOR = '|';
-DnaValidator.MUTANT_LINE_SEQUENCE_REGEX = buildMutantLineSequenceRegex();
 module.exports = DnaValidator;
