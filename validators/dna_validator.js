@@ -40,6 +40,7 @@ class DnaValidator {
 
 DnaValidator.HUMAN_NITROGEN_BASES = ['A', 'C', 'G', 'T'];
 DnaValidator.MUTANT_NUM_LINE_SEQUENCE = 4;
+DnaValidator.MUTANT_NUM_LINE_SEQUENCES = 1;
 DnaValidator.SEPARATOR = '|';
 DnaValidator.MUTANT_LINE_SEQUENCE_REGEX = buildMutantLineSequenceRegex();
 module.exports = DnaValidator;

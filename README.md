@@ -90,7 +90,7 @@ To identify the horizontal sequences, a simple traversal of the array is made su
 ![Screenshot_432](https://user-images.githubusercontent.com/42450812/200132680-8b3ed560-6824-42fb-8a4a-d9a03c080631.png)
 
 #### Vertical
-To identify the vertical sequences, the trasposed function of the StrMatrixHelper helper is used, which returns the transposed matrix of the matrix sent as a parameter, in this case the dna. With the transposed dna matrix, the vertical sequences are now in a horizontal position, allowing the algorithm mentioned in the previous paragraph to be executed.
+To identify the vertical sequences, the `rotate` function of the `StrMatrixHelper` helper is used, which returns the transposed matrix of the matrix sent as a parameter, in this case the dna. With the transposed dna matrix, the vertical sequences are now in a horizontal position, allowing the algorithm mentioned in the previous paragraph to be executed.
 
 ![Screenshot_434](https://user-images.githubusercontent.com/42450812/200132673-5881c092-d5bd-4e18-bdce-073f45c6675b.png)
 

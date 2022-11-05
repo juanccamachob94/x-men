@@ -1,10 +1,16 @@
 class StrMatrixHelper {
-  static trasposed(strMatrix) {
+  static rotate(strMatrix) {
     let strMatrixLength = strMatrix.length;
-    let trasposedStrMatrix = [];
-    for (let i = 0; i < strMatrixLength; i += 1)
-      trasposedStrMatrix.push(strMatrix.map(row => row[i]).join(''));
-    return trasposedStrMatrix;
+    let rotatedStrMatrix = [];
+    let row = undefined;
+    let x = undefined;
+    for(let y = 0; y < strMatrixLength; y += 1) {
+      row = '';
+      for(x = strMatrixLength - 1; x >= 0; x -= 1)
+        row += strMatrix[x][y];
+      rotatedStrMatrix.push(row);
+    } 
+    return rotatedStrMatrix;
   }
 
   static isWithin(strMatrix, x, y) {

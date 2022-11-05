@@ -1,6 +1,7 @@
 const StrMatrixHelper = require('../helpers/str_matrix_helper');
 const MutantLineSequenceCounter = require('../services/mutant_line_sequence_counter');
 const ObliqueMutantIdentifier = require('../services/oblique_mutant_identifier');
+const DnaValidator = require('../validators/dna_validator');
 
 class MutantIdentifier {
   static perform(dna) {
@@ -14,23 +15,22 @@ class MutantIdentifier {
   }
 
   isMutant() {
-    let minimumMutantSequences = 1;
     let numSequences = 0;
 
     numSequences = this.numMutantHorizontalSequence();
-    if(numSequences > minimumMutantSequences)
+    if(numSequences > DnaValidator.MUTANT_NUM_LINE_SEQUENCES)
       return true;
 
     numSequences += this.numMutantVerticalSequence();
-    if(numSequences > minimumMutantSequences)
+    if(numSequences > DnaValidator.MUTANT_NUM_LINE_SEQUENCES)
       return true;
 
     numSequences += ObliqueMutantIdentifier.perform(this.dna);
-    if (numSequences > minimumMutantSequences)
+    if(numSequences > DnaValidator.MUTANT_NUM_LINE_SEQUENCES)
       return true;
 
-    return numSequences
-      + ObliqueMutantIdentifier.perform(this.getTransposedDna()) > minimumMutantSequences;
+    return numSequences + ObliqueMutantIdentifier.perform(this.getTransposedDna())
+      > DnaValidator.MUTANT_NUM_LINE_SEQUENCES;
   }
 
   numMutantHorizontalSequence() {
@@ -43,7 +43,7 @@ class MutantIdentifier {
 
   getTransposedDna() {
     if(this.trasposedDna === undefined)
-      this.trasposedDna = StrMatrixHelper.trasposed(this.dna);
+      this.trasposedDna = StrMatrixHelper.rotate(this.dna);
     return this.trasposedDna;
   }
 }

@@ -19,12 +19,12 @@ class ObliqueMutantIdentifier {
     let y = limit;
     for(; y < this.dnaLength; y += 1) {
       total += this.numMutantSequences(x, y);
-      if(total > 1)
+      if(total > DnaValidator.MUTANT_NUM_LINE_SEQUENCES)
         return total;
     }
     for(x -= 1; x >= limit; x -= 1) {
       total += this.numMutantSequences(x, y - 1);
-      if(total > 1)
+      if(total > DnaValidator.MUTANT_NUM_LINE_SEQUENCES)
         return total;
     }
     return total;
@@ -39,7 +39,7 @@ class ObliqueMutantIdentifier {
       sequence += this.dna[i--][j--];
       if(sequence.length % DnaValidator.MUTANT_NUM_LINE_SEQUENCE == 0) {
         num = MutantLineSequenceCounter.performSequence(sequence);
-        if(num > 1)
+        if(num > DnaValidator.MUTANT_NUM_LINE_SEQUENCES)
           return num;
       }
     }
