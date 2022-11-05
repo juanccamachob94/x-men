@@ -11,7 +11,7 @@ class MutantIdentifier {
   constructor(dna) {
     this.dna = dna;
     this.dnaLength = dna?.length || 0;
-    this.trasposedDna = undefined;
+    this.rotatedDna = undefined;
   }
 
   isMutant() {
@@ -29,7 +29,7 @@ class MutantIdentifier {
     if(numSequences > DnaValidator.MUTANT_NUM_LINE_SEQUENCES)
       return true;
 
-    return numSequences + ObliqueMutantIdentifier.perform(this.getTransposedDna())
+    return numSequences + ObliqueMutantIdentifier.perform(this.getRotatedDna())
       > DnaValidator.MUTANT_NUM_LINE_SEQUENCES;
   }
 
@@ -38,13 +38,13 @@ class MutantIdentifier {
   }
 
   numMutantVerticalSequence() {
-    return MutantLineSequenceCounter.perform(this.getTransposedDna());
+    return MutantLineSequenceCounter.perform(this.getRotatedDna());
   }
 
-  getTransposedDna() {
-    if(this.trasposedDna === undefined)
-      this.trasposedDna = StrMatrixHelper.rotate(this.dna);
-    return this.trasposedDna;
+  getRotatedDna() {
+    if(this.rotatedDna === undefined)
+      this.rotatedDna = StrMatrixHelper.rotate(this.dna);
+    return this.rotatedDna;
   }
 }
 
