@@ -14,7 +14,7 @@ class ObliqueMutantIdentifier {
 
   process() {
     let total = 0;
-    let limit = DnaValidator.MUTANT_NUM_LINE_SEQUENCE - 1;
+    const limit = DnaValidator.MUTANT_NUM_LINE_SEQUENCE - 1;
     let x = this.dnaLength - 1;
     let y = limit;
     for(; y < this.dnaLength; y += 1) {

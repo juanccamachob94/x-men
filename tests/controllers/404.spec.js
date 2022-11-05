@@ -13,7 +13,7 @@ describe('404', () => {
 
   describe('GET /ml', () => {
     it('should respond with a 404 status code', async () => {
-      let response = await request(app).get('/404');
+      const response = await request(app).get('/404');
       expect(response.statusCode).toEqual(404);
       expect(response.body).toHaveProperty('error', 'Not Found');
     });

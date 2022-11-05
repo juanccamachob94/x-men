@@ -14,7 +14,7 @@ describe('mutant', () => {
 
   describe('POST /create', () => {
     const launchRequest = async (expectedIsMutant, dna) => {
-      let response = await request(app).post('/mutant').send({ dna: dna });
+      const response = await request(app).post('/mutant').send({ dna: dna });
       expect(response.statusCode).toEqual(expectedIsMutant ? 200 : 403);
       expect(response.body).toHaveProperty('isMutant', expectedIsMutant);
     }
@@ -351,7 +351,7 @@ describe('mutant', () => {
 
     describe("request hasn't dna", () => {
       it('should respond with a 403 status code', async () => {
-        let response = await request(app).post('/mutant').send({ invalid: 2 });
+        const response = await request(app).post('/mutant').send({ invalid: 2 });
         expect(response.statusCode).toEqual(403);
         expect(response.body).toHaveProperty('isMutant', false);
       });

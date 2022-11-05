@@ -9,7 +9,7 @@ class DnaClassifier {
     if(!DnaValidator.perform(dna.dna))
       return dna.getDefaultData();
 
-    let foundedDna = await Dna.findOne({ sequence: dna.sequence }).exec();
+    const foundedDna = await Dna.findOne({ sequence: dna.sequence }).exec();
     if(foundedDna)
       dna = foundedDna;
     else {

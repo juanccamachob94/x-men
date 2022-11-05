@@ -23,7 +23,7 @@ describe('stats', () => {
       });
 
       it('should respond with a 200 status code', async () => {
-        let response = await request(app).get('/stats');
+        const response = await request(app).get('/stats');
         expect(response.statusCode).toEqual(200);
         expect(response.body).toHaveProperty('count_mutant_dna', 1);
         expect(response.body).toHaveProperty('count_human_dna', 4);
@@ -34,7 +34,7 @@ describe('stats', () => {
 
     describe("there aren't records", () => {
       it('should respond with a 200 status code', async () => {
-        let response = await request(app).get('/stats');
+        const response = await request(app).get('/stats');
         expect(response.statusCode).toEqual(200);
         expect(response.body).toHaveProperty('count_mutant_dna', 0);
         expect(response.body).toHaveProperty('count_human_dna', 0);

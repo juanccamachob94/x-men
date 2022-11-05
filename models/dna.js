@@ -28,7 +28,7 @@ DnaSchema.virtual('dna')
   });
 
 DnaSchema.methods.getDefaultData = function() {
-  let response = { dna: this.dna };
+  const response = { dna: this.dna };
   if(this.isMutant !== undefined)
     response.isMutant = this.isMutant;
   return response;

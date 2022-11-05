@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const mongodbConfig = require('./mongodb');
 
 function buildMongodbUrl() {
-  let credentials = mongodbConfig[process.env.NODE_ENV];
+  const credentials = mongodbConfig[process.env.NODE_ENV];
   return `mongodb+srv://${credentials.user}:${credentials.password}@${credentials.host}/${credentials.database}?retryWrites=true&w=majority`;
 }
 

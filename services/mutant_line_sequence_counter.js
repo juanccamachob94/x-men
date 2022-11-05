@@ -3,7 +3,7 @@ const DnaValidator = require('../validators/dna_validator');
 class MutantLineSequenceCounter {
   static perform(dna) {
     let total = 0;
-    let dnaLength = dna.length;
+    const dnaLength = dna.length;
     for(let i = 0; i< dnaLength;  i+= 1) {
       total += this.performSequence(dna[i]);
       if(total > DnaValidator.MUTANT_NUM_LINE_SEQUENCES)
