@@ -138,7 +138,7 @@ You can perform an attack on the service through the script programmed in Python
 - Python 3.9.x
 
 ##### How to use
-Modify the script to use custom parameters based on your computer resources. Details in #15
+Modify the script to use custom parameters based on your computer resources. Details in [#15](https://github.com/juanccamachob94/x-men/pull/15)
 
 ```
 python3 ./tests/mutant_attack.py
