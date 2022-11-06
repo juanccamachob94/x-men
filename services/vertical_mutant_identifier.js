@@ -19,19 +19,27 @@ class VerticalMutantIdentifier {
   }
 
   numMutantSequences(y) {
+    let nitrogenBase = undefined;
     let sequence = '';
+    let completeSequence = undefined;
     let num = undefined;
+    let sequenceLength = undefined;
     for(let x = this.dnaLength - 1; x >= 0; x -= 1) {
-      sequence += this.dna[x][y];
-      if(sequence.length % DnaValidator.MUTANT_NUM_LINE_SEQUENCE === 0) {
+      nitrogenBase = this.dna[x][y]
+      sequence += nitrogenBase;
+      completeSequence += nitrogenBase;
+      sequenceLength = sequence.length
+      if(sequenceLength % DnaValidator.MUTANT_NUM_LINE_SEQUENCE === 0) {
         num = MutantLineSequenceCounter.performSequence(sequence);
         if(num > DnaValidator.MUTANT_NUM_LINE_SEQUENCES)
           return num;
+        else if(num == 0 && sequenceLength > DnaValidator.MUTANT_NUM_LINE_SEQUENCE)
+          sequence = sequence.substring(DnaValidator.MUTANT_NUM_LINE_SEQUENCE);
       }
     }
     if(sequence.length % DnaValidator.MUTANT_NUM_LINE_SEQUENCE !== 0)
       return MutantLineSequenceCounter.performSequence(sequence);
-    this.rotatedDna.push(sequence);
+    this.rotatedDna.push(completeSequence);
     return num;
   }
 
