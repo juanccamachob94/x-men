@@ -1,11 +1,12 @@
 const MutantLineSequenceCounter = require('../services/mutant_line_sequence_counter');
 const ObliqueMutantIdentifier = require('../services/oblique_mutant_identifier');
 const VerticalMutantIdentifier = require('../services/vertical_mutant_identifier');
+const TasksService = require('../services/tasks_service');
 const DnaValidator = require('../validators/dna_validator');
 
 class MutantIdentifier {
-  static perform(dna) {
-    return new MutantIdentifier(dna).isMutant();
+  static async perform(dna) {
+    return await (new MutantIdentifier(dna).isMutant());
   }
 
   constructor(dna) {
@@ -14,25 +15,27 @@ class MutantIdentifier {
     this.verticalMutantIdentifier = undefined;
   }
 
-  isMutant() {
+  async isMutant() {
     let numSequences = 0;
 
-    numSequences = this.numMutantHorizontalSequence();
+    numSequences += await this.executeAlgorithms([
+      this.numMutantHorizontalSequence,
+      this.numMutantVerticalSequence
+    ]);
+
     if(numSequences > DnaValidator.MUTANT_NUM_LINE_SEQUENCES)
       return true;
 
-    numSequences += this.numMutantVerticalSequence();
-    if(numSequences > DnaValidator.MUTANT_NUM_LINE_SEQUENCES)
-      return true;
+      numSequences += await this.executeAlgorithms([
+        this.numMutantBasicObliqueSequence,
+        this.numMutantRotatedObliqueSequence
+      ]);
+    return numSequences > DnaValidator.MUTANT_NUM_LINE_SEQUENCES
+  }
 
-    numSequences += ObliqueMutantIdentifier.perform(this.dna);
-    if(numSequences > DnaValidator.MUTANT_NUM_LINE_SEQUENCES)
-      return true;
-
-    return numSequences + ObliqueMutantIdentifier.perform(
-        this.getVerticalMutantIdentifier().getRotatedDna()
-      )
-      > DnaValidator.MUTANT_NUM_LINE_SEQUENCES;
+  async executeAlgorithms(tasks) {
+    return (await TasksService.execute(this, tasks))
+      .reduce((partialSum, a) => partialSum + a, 0);;
   }
 
   numMutantHorizontalSequence() {
@@ -41,6 +44,14 @@ class MutantIdentifier {
 
   numMutantVerticalSequence() {
     return this.getVerticalMutantIdentifier().process();
+  }
+
+  numMutantBasicObliqueSequence() {
+    return ObliqueMutantIdentifier.perform(this.dna);
+  }
+
+  numMutantRotatedObliqueSequence() {
+    return ObliqueMutantIdentifier.perform(this.getVerticalMutantIdentifier().getRotatedDna());
   }
 
   getVerticalMutantIdentifier() {

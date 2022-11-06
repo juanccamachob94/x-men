@@ -13,7 +13,7 @@ class DnaClassifier {
     if(foundedDna)
       dna = foundedDna;
     else {
-      dna.isMutant = MutantIdentifier.perform(dnaList);
+      dna.isMutant = await MutantIdentifier.perform(dnaList);
       try {
         await dna.save();
       } catch(error) {
