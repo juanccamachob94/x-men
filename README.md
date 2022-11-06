@@ -113,12 +113,12 @@ To identify the horizontal sequences, a simple traversal of the array is made su
 ![Screenshot_432](https://user-images.githubusercontent.com/42450812/200132680-8b3ed560-6824-42fb-8a4a-d9a03c080631.png)
 
 #### Vertical
-To identify the vertical sequences, the `rotate` function of the `StrMatrixHelper` helper is used, which returns the transposed matrix of the matrix sent as a parameter, in this case the dna. With the transposed dna matrix, the vertical sequences are now in a horizontal position, allowing the algorithm mentioned in the previous paragraph to be executed.
+To identify the vertical sequences, the `rotate` function of the `StrMatrixHelper` helper is used, which returns the rotated matrix of the matrix sent as a parameter, in this case the dna. With the rotated dna matrix, the vertical sequences are now in a horizontal position, allowing the algorithm mentioned in the previous paragraph to be executed.
 
 ![Screenshot_434](https://user-images.githubusercontent.com/42450812/200132673-5881c092-d5bd-4e18-bdce-073f45c6675b.png)
 
 #### Oblique
-Finally, to identify the oblique sequences, the oblique sequences are read from the upper left part of the matrix to the lower right part such that the number of characters exceeds the minimum value 4. As this data is read, it is validated in concatenations of 4 characters the presence of sequences of the same value until finding 2 or more. This process is repeated with the same transposed matrix generated in the previous step.
+Finally, to identify the oblique sequences, the oblique sequences are read from the upper left part of the matrix to the lower right part such that the number of characters exceeds the minimum value 4. As this data is read, it is validated in concatenations of 4 characters the presence of sequences of the same value until finding 2 or more. This process is repeated with the same rotated matrix generated in the previous step.
 
 ![Screenshot_435](https://user-images.githubusercontent.com/42450812/200132663-a15684e3-161c-4892-8976-fc8e67061b46.png)
 ![Screenshot_436](https://user-images.githubusercontent.com/42450812/200132664-f4cb8c48-cbc1-42a1-ace1-51a6266d9007.png)
