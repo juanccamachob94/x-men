@@ -25,6 +25,23 @@ cd x-men
 ```
 npm install
 ```
+- Configure MongoDB Database credentials
+Create the `.env` file in the project root, with the respective credentials keys (the example uses `test` environment). It is recommended to use `MongoDB Atlas`
+```
+NODE_ENV=test
+MONGODB_DEV_DATABASE=
+MONGODB_DEV_USER=
+MONGODB_DEV_PASSWORD=
+MONGODB_DEV_HOST=
+MONGODB_TEST_DATABASE=mutants_test
+MONGODB_TEST_USER=username
+MONGODB_TEST_PASSWORD=password
+MONGODB_TEST_HOST=cluster.mongodb.net
+MONGODB_PROD_DATABASE=
+MONGODB_PROD_USER=
+MONGODB_PROD_PASSWORD=
+MONGODB_PROD_HOST=
+```
 - Start the service
 ```
 npm start
