@@ -131,4 +131,15 @@ Additionally, the response for case 404 was added.
 
 ![Screenshot_431](https://user-images.githubusercontent.com/42450812/200134039-5984eb94-5457-42e4-98b5-3e2bf5f42777.png)
 
+> **Attack**
+You can perform an attack on the service through the script programmed in Python `./tests/mutant_attack.py`.
 
+##### Requirements
+- Python 3.9.x
+
+##### How to use
+Modify the script to use custom parameters based on your computer resources. Detalis in #15
+
+```
+python3 ./tests/mutant_attack.py
+```
