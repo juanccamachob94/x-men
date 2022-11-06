@@ -21,7 +21,7 @@ class VerticalMutantIdentifier {
   numMutantSequences(y) {
     let nitrogenBase = undefined;
     let sequence = '';
-    let completeSequence = undefined;
+    let completeSequence = '';
     let num = undefined;
     let sequenceLength = undefined;
     for(let x = this.dnaLength - 1; x >= 0; x -= 1) {
@@ -37,9 +37,9 @@ class VerticalMutantIdentifier {
           sequence = sequence.substring(DnaValidator.MUTANT_NUM_LINE_SEQUENCE);
       }
     }
+    this.rotatedDna.push(completeSequence);
     if(sequence.length % DnaValidator.MUTANT_NUM_LINE_SEQUENCE !== 0)
       return MutantLineSequenceCounter.performSequence(sequence);
-    this.rotatedDna.push(completeSequence);
     return num;
   }
 
