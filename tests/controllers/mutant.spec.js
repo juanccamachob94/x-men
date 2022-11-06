@@ -99,6 +99,19 @@ describe('mutant', () => {
               it('should respond with a 200 status code', async () => {
                 await launchRequest(true, [
                   'ATGCGACG',
+                  'CCCCCCCC',
+                  'TTATGTGC',
+                  'AGATCGAT',
+                  'CTAACGAA',
+                  'GTCATCGG',
+                  'TGGATCAT',
+                  'ACGCGGAC'
+                ]);
+              });
+
+              it('should respond with a 200 status code', async () => {
+                await launchRequest(true, [
+                  'ATGCGACG',
                   'CACCCCTA',
                   'TTATGTGC',
                   'AGATCGAT',
@@ -171,6 +184,19 @@ describe('mutant', () => {
                 ]);
               });
 
+              it('should respond with a 200 status code', async () => {
+                await launchRequest(true, [
+                  'ATGCGACG',
+                  'CTGTCCTA',
+                  'TTATGTGC',
+                  'ATATCGAT',
+                  'CTAACGAA',
+                  'GTCATCGG',
+                  'TTGCTCAT',
+                  'ATGATAAC'
+                ]);
+              });
+
               describe('human dna has mutant horizontal sequence', () => {
                 it('should respond with a 200 status code', async () => {
                   await launchRequest(true, [
@@ -231,6 +257,19 @@ describe('mutant', () => {
                     'GTCATCGG',
                     'TGGATCAT',
                     'ACGGTAAC'
+                  ]);
+                });
+
+                it('should respond with a 200 status code', async () => {
+                  await launchRequest(true, [
+                    'ATGCGACG',
+                    'CAGTGCTA',
+                    'TTAAGTGC',
+                    'AGAACGAT',
+                    'CTAAAGAA',
+                    'GTCATAGG',
+                    'TGGATCAT',
+                    'ACGGTAAA'
                   ]);
                 });
               });
@@ -317,7 +356,85 @@ describe('mutant', () => {
             });
           });
 
-          describe("human dna is small", () => {
+          describe('human dna only has one horizontal mutant sequence', () => {
+            it('should respond with a 403 status code', async () => {
+              await launchRequest(false, [
+                'ATGCGA',
+                'CTGTGC',
+                'TTATCT',
+                'AGAAGG',
+                'CCCCGA',
+                'TCACTG'
+              ]);
+            });
+
+            it('should respond with a 403 status code', async () => {
+              await launchRequest(false, [
+                'CTGCGACT',
+                'CAGTTCCA',
+                'TTACGTGT',
+                'AGAATGAG',
+                'GTGTGAGT',
+                'TCGCTCTC',
+                'GGGGGGGT',
+                'TAACCTGT'
+              ]);
+            });
+          });
+
+          describe('human dna only has one vertical mutant sequence', () => {
+            it('should respond with a 403 status code', async () => {
+              await launchRequest(false, [
+                'ATGCGA',
+                'CAGTGC',
+                'TTCTGT',
+                'AGAAGG',
+                'CCACGA',
+                'TCACTG'
+              ]);
+            });
+
+            it('should respond with a 403 status code', async () => {
+              await launchRequest(false, [
+                'CTGCGACT',
+                'CAGTTCCA',
+                'CTACGTGT',
+                'CGAATGAG',
+                'CTGTGAGT',
+                'CCGCTCTC',
+                'CTGTGAGT',
+                'TAACCTGT'
+              ]);
+            });
+          });
+
+          describe('human dna only has one oblique mutant sequence', () => {
+            it('should respond with a 403 status code', async () => {
+              await launchRequest(false, [
+                'ATGCGA',
+                'CAGTCC',
+                'TTATGT',
+                'AGAAGG',
+                'CACCGA',
+                'TCACTG'
+              ]);
+            });
+
+            it('should respond with a 403 status code', async () => {
+              await launchRequest(false, [
+                'CTGCGACT',
+                'CCGTTCCA',
+                'TTCCGTGT',
+                'AGACTGAG',
+                'GTGTCAGT',
+                'TCGCTCTC',
+                'GTGTGACT',
+                'TAACCTGT'
+              ]);
+            });
+          });
+
+          describe('human dna is small', () => {
             it('should respond with a 403 status code', async () => {
               await launchRequest(false, ['CT', 'CA']);
             });
