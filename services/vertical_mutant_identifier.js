@@ -9,25 +9,30 @@ class VerticalMutantIdentifier {
   }
 
   process() {
-    let row = undefined;
-    let x = undefined;
-    let num = undefined;
     let total = 0;
     for(let y = 0; y < this.dnaLength; y += 1) {
-      row = '';
-      for(x = this.dnaLength - 1; x >= 0; x -= 1) {
-        row += this.dna[x][y];
-        num = total + MutantLineSequenceCounter.performSequence(row);
-        if(row.length % DnaValidator.MUTANT_NUM_LINE_SEQUENCE === 0
-          && num > DnaValidator.MUTANT_NUM_LINE_SEQUENCES)
-            return num;
-      }
-      total += MutantLineSequenceCounter.performSequence(row);
+      total += this.numMutantSequences(y);
       if(total > DnaValidator.MUTANT_NUM_LINE_SEQUENCES)
         return total;
-      this.rotatedDna.push(row);
     }
     return total;
+  }
+
+  numMutantSequences(y) {
+    let sequence = '';
+    let num = undefined;
+    for(let x = this.dnaLength - 1; x >= 0; x -= 1) {
+      sequence += this.dna[x][y];
+      if(sequence.length % DnaValidator.MUTANT_NUM_LINE_SEQUENCE === 0) {
+        num = MutantLineSequenceCounter.performSequence(sequence);
+        if(num > DnaValidator.MUTANT_NUM_LINE_SEQUENCES)
+          return num;
+      }
+    }
+    if(sequence.length % DnaValidator.MUTANT_NUM_LINE_SEQUENCE !== 0)
+      return MutantLineSequenceCounter.performSequence(sequence);
+    this.rotatedDna.push(sequence);
+    return num;
   }
 
   getRotatedDna() {
