@@ -3,6 +3,8 @@ const request = require('supertest');
 const db = require('../db');
 const Dna = require('../../models/dna');
 
+jest.useRealTimers();
+
 describe('mutant', () => {
   afterEach(async() => {
     await db.clearDatabase();
@@ -287,12 +289,30 @@ describe('mutant', () => {
           describe("human dna doesn't have any sequence", () => {
             it('should respond with a 403 status code', async () => {
               await launchRequest(false, [
-                'CTGCGA',
-                'CAGTTC',
-                'TTATGT',
-                'AGAATG',
-                'GTTTGA',
-                'TCGCTG'
+                'CTGCGACTGCGACTGCGACTGCGA',
+                'CAGTTCCAGTTCCAGTTCCAGTTC',
+                'TTACGTGTATGCGTACGCGTATGC',
+                'AGAATGAGACTGAGATTGACACTG',
+                'GTGTGAGTGTGAGTGTGAGTGTGA',
+                'TCGCTCTCGCTCTCGCTGTCGCTG',
+                'GTGTGAGTGTGAGTGTGAGTGTGA',
+                'TAACCTGTATCCGTACCTGCATAC',
+                'CTGCGACTGCGACCGCGACTGCGA',
+                'GTGTGAGAGTGAGTGTGAGTGTGA',
+                'AGAATGCGAAGGAGAATGAGAATG',
+                'CAGTTCCAGTTCCAGTTCCAGTTC',
+                'TCACTGTCACTGTCGCTGTCGCTG',
+                'CTGCGCCTGTGACTACGACTTCGA',
+                'CAGTTCCAGTTCCAGTTCCAGTTC',
+                'TTACGTGTATGCGTACGTGTATGC',
+                'AGAATGAGAATGAGCCTGAGAATG',
+                'GTGTGAGTGTGAGTGTGAGTGTGA',
+                'TCGCTGTCGCTGTCGCTGTCGCTG',
+                'GTGTAAGTGTCAGTGTCAGCGTGA',
+                'TCACGTGTATGCGTACGTGTATGC',
+                'CTGCGACCGCCACCGCGACTGCCA',
+                'GTGTGAGTGTGAGTGTCAGTGTGA',
+                'AGAATGAGAATGAGAATGAGAATG'
               ]);
             });
           });

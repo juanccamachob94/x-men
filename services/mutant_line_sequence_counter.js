@@ -16,23 +16,21 @@ class MutantLineSequenceCounter {
     const length = sequence.length;
     let pivot = undefined;
     let count = undefined;
-    let y = undefined;
     let total = 0;
-    for(let x = 0; x < length;) {
-      pivot = sequence[x];
-      y = x;
+    for(let q = 0; q < length;) {
+      pivot = sequence[q];
       count = 0;
-      while(pivot == sequence[y]) {
-        count++;
-        if(count >= DnaValidator.MUTANT_NUM_LINE_SEQUENCE) {
+
+      while(pivot === sequence[q + count])
+        if(++count === DnaValidator.MUTANT_NUM_LINE_SEQUENCE) {
           total += 1;
           break;
         }
-        if(total > DnaValidator.MUTANT_NUM_LINE_SEQUENCES)
-          return total;
-        y++;
-      }
-      x = y;
+
+      if(total > DnaValidator.MUTANT_NUM_LINE_SEQUENCES)
+        return total;
+
+      q += count;
     }
     return total;
   }
