@@ -3,8 +3,6 @@ const request = require('supertest');
 const db = require('../db');
 const Dna = require('../../models/dna');
 
-jest.useRealTimers();
-
 describe('mutant', () => {
   afterEach(async() => {
     await db.clearDatabase();
