@@ -14,9 +14,13 @@ class DnaClassifier {
       dna = foundedDna;
     else {
       dna.isMutant = MutantIdentifier.perform(dnaList);
-      await dna.save();
+      try {
+        await dna.save();
+      } catch(error) {
+        if(error.name !== 'MongoError' || error.code !== 11000)
+          throw new Error(error);
+      }
     }
-
     return dna.getDefaultData();
   }
 }
