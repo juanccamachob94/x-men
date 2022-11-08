@@ -6,7 +6,7 @@ class MutantLineSequenceCounter {
     const dnaLength = dna.length;
     for(let i = 0; i< dnaLength;  i+= 1) {
       total += this.performSequence(dna[i]);
-      if(total > DnaValidator.MUTANT_NUM_LINE_SEQUENCES)
+      if(total >= DnaValidator.MUTANT_NUM_LINE_SEQUENCES)
         return total;
     }
     return total;
@@ -27,7 +27,7 @@ class MutantLineSequenceCounter {
           break;
         }
 
-      if(total > DnaValidator.MUTANT_NUM_LINE_SEQUENCES)
+      if(total >= DnaValidator.MUTANT_NUM_LINE_SEQUENCES)
         return total;
 
       q += count;

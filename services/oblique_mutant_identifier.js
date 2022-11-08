@@ -1,4 +1,5 @@
 const MutantLineSequenceCounter = require('../services/mutant_line_sequence_counter');
+const SequenceProcessor = require('../services/sequence_processor');
 const StrMatrixHelper = require('../helpers/str_matrix_helper');
 const DnaValidator = require('../validators/dna_validator');
 
@@ -19,12 +20,12 @@ class ObliqueMutantIdentifier {
     let y = limit;
     for(; y < this.dnaLength; y += 1) {
       total += this.numMutantSequences(x, y);
-      if(total > DnaValidator.MUTANT_NUM_LINE_SEQUENCES)
+      if(total >= DnaValidator.MUTANT_NUM_LINE_SEQUENCES)
         return total;
     }
     for(x -= 1; x >= limit; x -= 1) {
       total += this.numMutantSequences(x, y - 1);
-      if(total > DnaValidator.MUTANT_NUM_LINE_SEQUENCES)
+      if(total >= DnaValidator.MUTANT_NUM_LINE_SEQUENCES)
         return total;
     }
     return total;
@@ -34,23 +35,16 @@ class ObliqueMutantIdentifier {
     let sequence = '';
     let i = x;
     let j = y;
-    let num = undefined;
-    let sequenceLength = undefined;
+    let response = undefined;
     while(StrMatrixHelper.isWithin(this.dna, i, j)) {
       sequence += this.dna[i--][j--];
-      sequenceLength = sequence.length
-      if(sequenceLength % DnaValidator.MUTANT_NUM_LINE_SEQUENCE === 0) {
-        num = MutantLineSequenceCounter.performSequence(sequence);
-        if(num > DnaValidator.MUTANT_NUM_LINE_SEQUENCES)
-          return num;
-        else if(num == 0 && sequenceLength > DnaValidator.MUTANT_NUM_LINE_SEQUENCE)
-          sequence = sequence.substring(DnaValidator.MUTANT_NUM_LINE_SEQUENCE);
-      }
+      response = SequenceProcessor.perform(sequence);
+        if(typeof(response) === 'number')
+          return response;
+        sequence = response;
     }
 
-    if(sequence.length % DnaValidator.MUTANT_NUM_LINE_SEQUENCE !== 0)
-      return MutantLineSequenceCounter.performSequence(sequence);
-    return num;
+    return MutantLineSequenceCounter.performSequence(sequence);
   }
 }
 

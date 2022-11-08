@@ -18,21 +18,21 @@ class MutantIdentifier {
     let numSequences = 0;
 
     numSequences = this.numMutantHorizontalSequence();
-    if(numSequences > DnaValidator.MUTANT_NUM_LINE_SEQUENCES)
+    if(numSequences >= DnaValidator.MUTANT_NUM_LINE_SEQUENCES)
       return true;
 
     numSequences += this.numMutantVerticalSequence();
-    if(numSequences > DnaValidator.MUTANT_NUM_LINE_SEQUENCES)
+    if(numSequences >= DnaValidator.MUTANT_NUM_LINE_SEQUENCES)
       return true;
 
     numSequences += ObliqueMutantIdentifier.perform(this.dna);
-    if(numSequences > DnaValidator.MUTANT_NUM_LINE_SEQUENCES)
+    if(numSequences >= DnaValidator.MUTANT_NUM_LINE_SEQUENCES)
       return true;
 
     return numSequences + ObliqueMutantIdentifier.perform(
         this.getVerticalMutantIdentifier().getRotatedDna()
       )
-      > DnaValidator.MUTANT_NUM_LINE_SEQUENCES;
+      >= DnaValidator.MUTANT_NUM_LINE_SEQUENCES;
   }
 
   numMutantHorizontalSequence() {
