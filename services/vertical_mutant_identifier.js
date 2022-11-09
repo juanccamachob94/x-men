@@ -23,7 +23,6 @@ class VerticalMutantIdentifier {
     let nitrogenBase = undefined;
     let sequence = '';
     let completeSequence = '';
-    let num = undefined;
     let response = undefined;
     for(let x = this.dnaLength - 1; x >= 0; x -= 1) {
       nitrogenBase = this.dna[x][y]
